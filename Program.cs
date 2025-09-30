@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using ZADANIE5.Models; // <-- dostosuj do swojej przestrzeni nazw
+
 namespace ZADANIE5
 {
     public class Program
@@ -6,16 +9,18 @@ namespace ZADANIE5
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Dodaj DbContext z PostgreSQL
+            builder.Services.AddDbContext<TestContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // Dodaj kontrolery z widokami
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

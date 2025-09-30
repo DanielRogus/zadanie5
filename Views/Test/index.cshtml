@@ -1,0 +1,30 @@
+﻿@model List<Klienci>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Liczba klientów";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+    <div>
+        @foreach (var klient in Model)
+        {
+            <div>
+                <h3>Klient : @klient.Id</h3>
+                <p>@klient.Name @klient.Surname</p>
+                <p>@(klient.Gender == 1 ? "Mężczyzna" : "Kobieta")</p>
+                <p>PESEL : @klient.Pesel</p>
+                <p>Rok urodzenia : @klient.BirthYear</p>
+                <a asp-action="Edit" asp-round-id="@klient.Id">Edit</a>
+                <a asp-action="Delete" asp-round-id="@klient.Id">Delete</a>
+            </div>
+        }
+    </div>
+</body>
+</html>
